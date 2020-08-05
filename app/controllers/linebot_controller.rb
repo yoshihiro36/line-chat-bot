@@ -1,6 +1,9 @@
 class LinebotController < ApplicationController
   require 'line/bot'
 
+  # callbackアクションのCSRFトークン認証を無効
+  protect_from_forgery :except => [:callback]
+
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
